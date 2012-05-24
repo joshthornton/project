@@ -14,6 +14,9 @@ int main( int argc, char * argv[] )
 	{
 		FCGX_FPrintF( out, "Content-Type: text/plain\n\n");
 		FCGX_FPrintF( out, "Hello, World!\n" );
+
+		for ( int i = 0; envp[i]; ++i )
+			FCGX_FPrintF( out, "%s\n", envp[i] );
 		
 		char * post;
 		if ( read_stream( &post, in, envp) )
