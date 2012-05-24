@@ -26,7 +26,7 @@ ssize_t read_stream(char **buffer, FCGX_Stream *stream, FCGX_ParamArray envp )
 int content_length(FCGX_ParamArray envp)
 {
     int contentLength = -1;
-    char * string = FCGX_GetParam("HTTP_CONTENT_LENGTH", envp);
+    char * string = FCGX_GetParam("CONTENT_LENGTH", envp);
 	if ( !string )
 		return -1;
     char *rubbishChar;
@@ -37,3 +37,4 @@ int content_length(FCGX_ParamArray envp)
 
     return contentLength;
 }
+
