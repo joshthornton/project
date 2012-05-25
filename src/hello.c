@@ -19,7 +19,7 @@ int main( int argc, char * argv[] )
 		//	FCGX_FPrintF( out, "%s\n", envp[i] );
 		
 		char * post;
-		if ( read_stream( &post, in, envp) )
+		if ( read_stream( &post, in, content_length( envp ), (1<<20) ) )
 			FCGX_FPrintF( out, "POST:\t\t%s\n", post );
 
 		FCGX_FPrintF( out, "QUERY_STRING:\t%s\n", FCGX_GetParam("QUERY_STRING", envp) );

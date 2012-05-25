@@ -1,23 +1,26 @@
 #include "functions.h"
 
-ssize_t read_stream(char **buffer, FCGX_Stream *stream, FCGX_ParamArray envp )
+ssize_t read_stream(char **buffer, FCGX_Stream *stream, int guessContentLength, int maxSize )
 {
-    int contentLength = content_length( envp );
+    int contentLength = guessContentLength;
     int length = 0;
     if (contentLength > 0)
     {
         // Allow for null char
         contentLength += 1;
+		
+		if (contentLength > maxSize)
+			contentLength = maxSize;
 
         *buffer = malloc( sizeof(char) * contentLength );
-        while ( !FCGX_HasSeenEOF( stream ) )
+        while ( !FCGX_HasSeenEOF( stream ) && length < maxSize)
         {
             if ( length == contentLength )
             {
                 contentLength += contentLength;
                 *buffer = realloc( *buffer, sizeof(char) * contentLength );
             }
-            length += FCGX_GetStr( *buffer, contentLength - length, stream );
+            length += FCGX_GetStr( *buffer + length, contentLength - length, stream );
         }
     }
     return length;
