@@ -1,5 +1,5 @@
-#ifndef Project_FUNCTIONS
-#define Project_FUNCTIONS
+#ifndef Project_Miscellaneous
+#define Project_Miscellaneous
 
 #include <fcgiapp.h>
 #include <stdlib.h>
